@@ -19,6 +19,8 @@ import com.minsait.AppContacts.controllers.dto.ResponseDTO;
 import com.minsait.AppContacts.models.entities.Contact;
 import com.minsait.AppContacts.services.ContactsService;
 
+import io.swagger.v3.oas.annotations.Operation;
+
 @RestController
 @RequestMapping(value = "/api")
 public class ContactController {
@@ -29,16 +31,19 @@ public class ContactController {
 		this.contactsService = contactsService;
 	}
 	
+	@Operation(summary = "Create a new contact for a person by person ID")
 	@PostMapping("/pessoas/{personId}/contatos")
 	public ResponseEntity<ResponseDTO<Contact>> createContact(@PathVariable Long personId, @RequestBody Contact contact) {
 		Contact newContact = contactsService.insertContact(personId, contact);
 		if(newContact == null) {
-			return ResponseEntity.notFound().build();			
+			ResponseDTO<Contact> responseDTO = new ResponseDTO<>("The person this contact is associating with was not found", null);
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(responseDTO);			
 		}
-		ResponseDTO<Contact> responseDTO = new ResponseDTO<>("Contato criado com sucesso!", newContact);
+		ResponseDTO<Contact> responseDTO = new ResponseDTO<>("Contact created successfully!", newContact);
 		return ResponseEntity.status(HttpStatus.CREATED).body(responseDTO);
 	}
-
+	
+	@Operation(summary = "Retrieve all contacts for a person by person ID")
 	@GetMapping("/pessoas/{personId}/contatos")
 	public ResponseEntity<List<Contact>> getAllContactsByPersonId(@PathVariable Long personId) {
 		List<Contact> allContactsList = contactsService.getAllContactsByPersonId(personId);
@@ -48,46 +53,49 @@ public class ContactController {
 		return ResponseEntity.ok(allContactsList);
 	}
 	
+	@Operation(summary = "Update contact information by contact ID")
 	@PutMapping("/contatos/{contactId}")
 	public ResponseEntity<ResponseDTO<Contact>> updateContact(@PathVariable Long contactId, @RequestBody Contact contact) {
 		Optional<Contact> optionalContact = contactsService.updateContact(contactId, contact);
 		
 		if (optionalContact.isPresent()) {
 			ResponseDTO<Contact> responseDTO = new ResponseDTO<>(
-					"Dados de contato foram atualizados no banco de dados!", optionalContact.get());
+					"Contact details have been updated in the database!", optionalContact.get());
 			return ResponseEntity.ok(responseDTO);
 		}
 		
 		ResponseDTO<Contact> responseDTO = new ResponseDTO<>(
-                String.format("Não foi encontrado o contato com ID %d", contactId), null);
+                String.format("The contact was not found with ID %d", contactId), null);
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(responseDTO);
 	}
 	
+	@Operation(summary = "Delete a contact by contact ID")
 	@DeleteMapping("/contatos/{contactId}")
 	public ResponseEntity<ResponseDTO<Contact>> deleteContact(@PathVariable Long contactId) {
 		Optional<Contact> optionalContact = contactsService.removeContactById(contactId);
 		
 		if (optionalContact.isEmpty()) {
 			ResponseDTO<Contact> responseDTO = new ResponseDTO<> (
-					String.format("Não foi encontrado contato com ID %d", contactId), null);
+					String.format("The contact was not found with ID %d", contactId), null);
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(responseDTO);
 		}
 		
-		ResponseDTO<Contact> responseDTO = new ResponseDTO<>("Contato removido do banco de dados", null);
+		ResponseDTO<Contact> responseDTO = new ResponseDTO<>("Contact removed from database", null);
 		return ResponseEntity.ok(responseDTO);
 	}
 	
+	@Operation(summary = "Retrieve a contact by contact ID")
 	@GetMapping("/contatos/{contactId}")
 	public ResponseEntity<ResponseDTO<Contact>> getContactById(@PathVariable Long contactId) {
 		Optional<Contact> optionalContact = contactsService.getContactById(contactId);
 		
 		if (optionalContact.isEmpty()) {
 			ResponseDTO<Contact> responseDTO = new ResponseDTO<>(
-					String.format("Não foi encontrado um contato com ID %d", contactId), null);
+					String.format("The contact was not found with ID %d", contactId), null);
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(responseDTO);
 		}
 
-		ResponseDTO<Contact> responseDTO = new ResponseDTO<>("Contato encontrada com sucesso!", optionalContact.get());
+		ResponseDTO<Contact> responseDTO = new ResponseDTO<>("Contact found successfully!", optionalContact.get());
 	    return ResponseEntity.ok(responseDTO);
 	}
 

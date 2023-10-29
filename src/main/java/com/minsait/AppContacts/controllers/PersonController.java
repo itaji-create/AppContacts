@@ -20,6 +20,8 @@ import com.minsait.AppContacts.controllers.dto.ResponseDTO;
 import com.minsait.AppContacts.models.entities.Person;
 import com.minsait.AppContacts.services.PersonService;
 
+import io.swagger.v3.oas.annotations.Operation;
+
 @RestController
 @RequestMapping(value = "/api/pessoas")
 public class PersonController {
@@ -30,74 +32,80 @@ public class PersonController {
 		this.personService = personService;
 	}
 	
+	@Operation(summary = "Create a new person")
 	@PostMapping()
 	public ResponseEntity<ResponseDTO<Person>> createPerson(@RequestBody Person person) {
 		Person newPerson = personService.insertPerson(person);
-		ResponseDTO<Person> responseDTO = new ResponseDTO<>("Pessoa criada com sucesso!", newPerson);
+		ResponseDTO<Person> responseDTO = new ResponseDTO<>("Person created successfully!", newPerson);
 		return ResponseEntity.status(HttpStatus.CREATED).body(responseDTO);
 	}
 	
+	@Operation(summary = "Update the person's data by ID")
 	@PutMapping("/{personId}")
 	public ResponseEntity<ResponseDTO<Person>> updatePerson(@PathVariable Long personId, @RequestBody Person person) {
 		Optional<Person> optionalPerson = personService.updatePerson(personId, person);
 		
 		if (optionalPerson.isPresent()) {
 			ResponseDTO<Person> responseDTO = new ResponseDTO<>(
-					"Dados da pessoa foram atualizados no banco de dados!", optionalPerson.get());
+					"Person's data has been updated in the database!", optionalPerson.get());
 			return ResponseEntity.ok(responseDTO);
 		}
 		
 		ResponseDTO<Person> responseDTO = new ResponseDTO<>(
-                String.format("Não foi encontrado a pessoa com ID %d", personId), null);
+                String.format("The person was not found with ID %d", personId), null);
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(responseDTO);
 	}
 	
+	@Operation(summary = "Delete a person by ID")
 	@DeleteMapping("/{personId}")
 	public ResponseEntity<ResponseDTO<Person>> deletePerson(@PathVariable Long personId) {
 		Optional<Person> optionalPerson = personService.removePersonById(personId);
 		
 		if (optionalPerson.isEmpty()) {
 			ResponseDTO<Person> responseDTO = new ResponseDTO<> (
-					String.format("Não foi encontrado a pessoa com ID %d", personId), null);
+					String.format("The person was not found with ID %d", personId), null);
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(responseDTO);
 		}
 		
-		ResponseDTO<Person> responseDTO = new ResponseDTO<>("Pessoa removida do banco de dados", null);
+		ResponseDTO<Person> responseDTO = new ResponseDTO<>("Person removed from database", null);
 		return ResponseEntity.ok(responseDTO);
 	}
 	
+	@Operation(summary = "Retrieve a person by ID")
 	@GetMapping("/{personId}")
 	public ResponseEntity<ResponseDTO<Person>> getPersonById(@PathVariable Long personId) {
 		Optional<Person> optionalPerson = personService.getPersonById(personId);
 		
 		if (optionalPerson.isEmpty()) {
 			ResponseDTO<Person> responseDTO = new ResponseDTO<>(
-					String.format("Não foi encontrado uma pessoa com ID %d", personId), null);
+					String.format("The person was not found with ID %d", personId), null);
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(responseDTO);
 		}
 
-		ResponseDTO<Person> responseDTO = new ResponseDTO<>("Pessoa encontrada com sucesso!", optionalPerson.get());
+		ResponseDTO<Person> responseDTO = new ResponseDTO<>("Person found successfully!", optionalPerson.get());
 	    return ResponseEntity.ok(responseDTO);
 	}
 	
+	@Operation(summary = "Generate direct mail data for a person by ID")
 	@GetMapping("/maladireta/{personId}")
 	public ResponseEntity<ResponseDTO<DirectMailDTO>> directMail(@PathVariable Long personId) {
 		Optional<Person> optionalPerson = personService.getPersonById(personId);
 
 		if (optionalPerson.isEmpty()) {
 			ResponseDTO<DirectMailDTO> responseDTO = new ResponseDTO<>(
-					String.format("Não foi encontrado uma pessoa com ID %d", personId), null);
+					String.format("The person was not found with ID %d", personId), null);
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(responseDTO);
 		}
 		Person person = optionalPerson.get();
 
-		String directMailField = person.getAddress() + " - " + person.getCep() + " - " + person.getCity() + "/" + person.getUf();
+		String directMailField = person.getAddress() + " - " + "CEP: " + person.getCep() + " - " + person.getCity() + "/" + person.getUf();
 		DirectMailDTO directMailDTO = new DirectMailDTO(person.getId(), person.getName(), directMailField);
 		
-		ResponseDTO<DirectMailDTO> responseDTO = new ResponseDTO<>("Pessoa encontrada com sucesso!", directMailDTO);
+		ResponseDTO<DirectMailDTO> responseDTO = new ResponseDTO<>("Person found successfully!", directMailDTO);
 	    return ResponseEntity.ok(responseDTO);
 	}
 	
+	@Operation(summary = "Retrieve a list of all people")
 	@GetMapping()
 	public ResponseEntity<List<Person>> getAllPeople() {
 		List<Person> allPeopleList = personService.getAllPeople();
