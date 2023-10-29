@@ -19,10 +19,12 @@ public class PersonService implements PersonServiceInterface {
 		this.personRepository = personRepository;
 	}
 	
+	@Override
 	public Person insertPerson(Person person) {
 		return personRepository.save(person);
 	}
 	
+	@Override
 	public Optional<Person> updatePerson(Long id, Person person) {
 		Optional<Person> optionalPerson = personRepository.findById(id);
 		
@@ -41,6 +43,7 @@ public class PersonService implements PersonServiceInterface {
 		return optionalPerson;
 	}
 	
+	@Override
 	public Optional<Person> removePersonById(Long id) {
 		Optional<Person> personOptional = personRepository.findById(id);
 		
@@ -51,10 +54,12 @@ public class PersonService implements PersonServiceInterface {
 		return personOptional;
 	}
 	
+	@Override
 	public Optional<Person> getPersonById(Long id) {
 		return personRepository.findById(id);
 	}
-	
+
+	@Override
 	public List<Person> getAllPeople() {
 		return personRepository.findAll();
 	}
