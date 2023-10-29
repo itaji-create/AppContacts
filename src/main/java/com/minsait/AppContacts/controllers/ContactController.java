@@ -38,6 +38,15 @@ public class ContactController {
 		ResponseDTO<Contact> responseDTO = new ResponseDTO<>("Contato criado com sucesso!", newContact);
 		return ResponseEntity.status(HttpStatus.CREATED).body(responseDTO);
 	}
+
+	@GetMapping("/pessoas/{personId}/contatos")
+	public ResponseEntity<List<Contact>> getAllContactsByPersonId(@PathVariable Long personId) {
+		List<Contact> allContactsList = contactsService.getAllContactsByPersonId(personId);
+		
+		if(allContactsList == null)
+			return ResponseEntity.notFound().build();
+		return ResponseEntity.ok(allContactsList);
+	}
 	
 	@PutMapping("/contatos/{contactId}")
 	public ResponseEntity<ResponseDTO<Contact>> updateContact(@PathVariable Long contactId, @RequestBody Contact contact) {
@@ -60,7 +69,7 @@ public class ContactController {
 		
 		if (optionalContact.isEmpty()) {
 			ResponseDTO<Contact> responseDTO = new ResponseDTO<> (
-					String.format("Não foi encontrado a pessoa com ID %d", contactId), null);
+					String.format("Não foi encontrado contato com ID %d", contactId), null);
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(responseDTO);
 		}
 		
@@ -81,14 +90,5 @@ public class ContactController {
 		ResponseDTO<Contact> responseDTO = new ResponseDTO<>("Contato encontrada com sucesso!", optionalContact.get());
 	    return ResponseEntity.ok(responseDTO);
 	}
-	
 
-	@GetMapping("/pessoas/{personId}/contatos")
-	public ResponseEntity<List<Contact>> getAllContactsByPersonId(@PathVariable Long personId) {
-		List<Contact> allContactsList = contactsService.getAllContactsByPersonId(personId);
-		
-		if(allContactsList == null)
-			return ResponseEntity.notFound().build();
-		return ResponseEntity.ok(allContactsList);
-	}
 }

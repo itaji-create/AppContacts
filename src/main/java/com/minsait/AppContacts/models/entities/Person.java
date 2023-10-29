@@ -1,12 +1,16 @@
 package com.minsait.AppContacts.models.entities;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -22,6 +26,9 @@ public class Person {
 	private String cep;
 	private String city;
 	private String uf;
+	
+    @OneToMany(mappedBy = "person", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<Contact> contacts = new ArrayList<>();
 	
 	public Person() {}
 	public Person(Long id, String name, String address, String cep, String city, String uf) {
