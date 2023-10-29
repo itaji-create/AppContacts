@@ -7,9 +7,9 @@ import com.minsait.AppContacts.models.entities.Contact;
 
 
 public interface ContactServiceInterface {
-	List<Contact> getAllContacts();
+	List<Contact> getAllContactsByPersonId(Long personId);
 	Optional<Contact> getContactById(Long id);
-	Contact insertContact(Contact contact);
+	Contact insertContact(Long personId, Contact contact);
 	Optional<Contact> updateContact(Long id, Contact contact);
 	Optional<Contact> removeContactById(Long id);
 }

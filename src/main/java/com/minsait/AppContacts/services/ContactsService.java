@@ -7,21 +7,26 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.minsait.AppContacts.models.entities.Contact;
+import com.minsait.AppContacts.models.entities.Person;
 import com.minsait.AppContacts.models.repositories.ContactRepository;
+import com.minsait.AppContacts.models.repositories.PersonRepository;
 import com.minsait.AppContacts.services.interfaces.ContactServiceInterface;
 
 @Service
 public class ContactsService implements ContactServiceInterface{
-	ContactRepository contactRepository;
+	private ContactRepository contactRepository;
 	
 	@Autowired
 	public ContactsService(ContactRepository contactRepository) {
 		this.contactRepository = contactRepository;
 	}
+	
+	@Autowired
+    private PersonRepository personRepository;
 
 	@Override
-	public List<Contact> getAllContacts() {
-		return contactRepository.findAll();
+	public List<Contact> getAllContactsByPersonId(Long personId) {
+		return contactRepository.findByPersonId(personId);
 	}
 
 	@Override
@@ -30,8 +35,14 @@ public class ContactsService implements ContactServiceInterface{
 	}
 
 	@Override
-	public Contact insertContact(Contact contact) {
-		return contactRepository.save(contact);
+	public Contact insertContact(Long personId, Contact contact) {
+		Optional<Person> personOptional = personRepository.findById(personId);
+		if (personOptional.isPresent()) {
+            Person person = personOptional.get();
+            Contact newContact = new Contact(contact.getId(), contact.getContactType(), contact.getContact(), person);
+            return contactRepository.save(newContact);
+        }
+		return null;
 	}
 
 	@Override
