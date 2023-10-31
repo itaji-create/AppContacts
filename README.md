@@ -1,15 +1,16 @@
 # Bem vindo ao projeto AppContacts
 
-Este projeto tem como finalidade demonstrar os conhecimentos obtidos durante o curso de capacitação em Java/Spring da Minsait. Nele foi uma API Rest que permite o usuário criar, deletar, resgatar ou atualizar pessoas e contatos em um banco de dados.
+Este projeto tem como finalidade demonstrar os conhecimentos obtidos durante o curso de capacitação em Java/Spring da Minsait. Nele foi construido uma API Rest que permite o usuário criar, deletar, resgatar ou atualizar pessoas e contatos em um banco de dados.
 
 ## Tecnologias
 
-- Java 11
+- Java 17
 - Spring Boot
 - Spring Framework
 - Spring Data JPA
 - Hibernate
 - Banco de Dados (MySQL)
+- Swagger-ui
 
 ## Pré-requisitos
 
@@ -29,8 +30,10 @@ Para iniciar o projeto é necessario ter instalado em sua máquina as seguintes 
 
 3. Compile o projeto com o Maven:
 	- `mvn clean install`
+	
 4. Execute o projeto:
 	- `mvn spring-boot:run`
+	
 
 ## Configuração
 
@@ -47,11 +50,15 @@ Exemplo de application.properties:
 ``spring.jpa.show-sql=true`
 
 <details>
-<summary>
-	## Endpoints disponíveis:
-</summary>
-	Obs. Exemplos com aplicação rodando no localhost porta 8080.
-### Pessoa
+	<summary>
+		<strong>Endpoints disponíveis:</strong>
+	</summary>
+
+	- Obs. Exemplos com aplicação rodando no localhost porta 8080.
+	<br>
+	
+#### Pessoa
+
 	- POST `http://localhost:8080/api/pessoas` (cria uma nova Pessoa)
 	- GET http://localhost:8080/api/pessoas/{id} (retorna os dados de uma Pessoa por ID)
 	- GET http://localhost:8080/api/pessoas/maladireta/{id} (retorna os dados de uma Pessoa por ID para mala direta)
@@ -59,7 +66,7 @@ Exemplo de application.properties:
 	- PUT http://localhost:8080/api/pessoas/{id} (atualiza uma Pessoa existente)
 	- DELETE http://localhost:8080/api/pessoas/{id} (remove uma Pessoa por ID)
 
-### Contato
+#### Contato
 	- POST http://localhost:8080/api/pessoas/{id}/contatos (adiciona um novo Contato a uma Pessoa)
 	- GET http://localhost:8080/api/contatos/{id} (retorna os dados de um Contato por ID)
 	- GET http://localhost:8080/api/pessoas/{idPessoa}/contatos (lista todos os Contatos de uma Pessoa)
