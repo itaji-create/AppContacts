@@ -35,6 +35,10 @@ public class PersonController {
 	@Operation(summary = "Create a new person")
 	@PostMapping()
 	public ResponseEntity<ResponseDTO<Person>> createPerson(@RequestBody Person person) {
+		if (person.getName() == null) {
+			ResponseDTO<Person> responseDTO = new ResponseDTO<>("You must fill in the name field to create a new user.", null);
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responseDTO);
+		}
 		Person newPerson = personService.insertPerson(person);
 		ResponseDTO<Person> responseDTO = new ResponseDTO<>("Person created successfully!", newPerson);
 		return ResponseEntity.status(HttpStatus.CREATED).body(responseDTO);
@@ -43,6 +47,11 @@ public class PersonController {
 	@Operation(summary = "Update the person's data by ID")
 	@PutMapping("/{personId}")
 	public ResponseEntity<ResponseDTO<Person>> updatePerson(@PathVariable Long personId, @RequestBody Person person) {
+		if (person.getName() == null) {
+			ResponseDTO<Person> responseDTO = new ResponseDTO<>("You must fill in the name field to create a new user.", null);
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responseDTO);
+		}
+	
 		Optional<Person> optionalPerson = personService.updatePerson(personId, person);
 		
 		if (optionalPerson.isPresent()) {
