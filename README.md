@@ -55,7 +55,7 @@ Configure o arquivo application.properties para definir as configurações do ba
 
 <details>
 
-#### Pessoa
+	<summary><strong>Pessoa</strong></summary>
 
 	- POST: "http://localhost:8080/api/pessoas"
 		(Cria uma nova Pessoa)
@@ -73,8 +73,8 @@ Configure o arquivo application.properties para definir as configurações do ba
 </details>
 
 <details>
+	<summary><strong>Contato</strong></summary>
 
-#### Contato
 	- POST http://localhost:8080/api/pessoas/{pessoaId}/contatos"
 		(Adiciona um novo Contato a uma Pessoa)
 	- GET: "http://localhost:8080/api/contatos/{contatoId}
