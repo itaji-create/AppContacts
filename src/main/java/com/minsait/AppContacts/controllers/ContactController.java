@@ -34,7 +34,12 @@ public class ContactController {
 	@Operation(summary = "Create a new contact for a person by person ID")
 	@PostMapping("/pessoas/{personId}/contatos")
 	public ResponseEntity<ResponseDTO<Contact>> createContact(@PathVariable Long personId, @RequestBody Contact contact) {
+		if (contact.getContact() == null) {
+			ResponseDTO<Contact> responseDTO = new ResponseDTO<>("You must fill in the contact field to create a new contact.", null);
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responseDTO);
+		}
 		Contact newContact = contactsService.insertContact(personId, contact);
+		
 		if(newContact == null) {
 			ResponseDTO<Contact> responseDTO = new ResponseDTO<>("The person this contact is associating with was not found", null);
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(responseDTO);			
@@ -56,6 +61,10 @@ public class ContactController {
 	@Operation(summary = "Update contact information by contact ID")
 	@PutMapping("/contatos/{contactId}")
 	public ResponseEntity<ResponseDTO<Contact>> updateContact(@PathVariable Long contactId, @RequestBody Contact contact) {
+		if (contact.getContact() == null) {
+			ResponseDTO<Contact> responseDTO = new ResponseDTO<>("You must fill in the contact field to update a contact.", null);
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responseDTO);
+		}
 		Optional<Contact> optionalContact = contactsService.updateContact(contactId, contact);
 		
 		if (optionalContact.isPresent()) {

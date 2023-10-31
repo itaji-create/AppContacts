@@ -53,8 +53,6 @@ public class ContactsService implements ContactServiceInterface{
 			Contact contactFromDb = optionalContact.get();
 			contactFromDb.setContact(contact.getContact());
 			contactFromDb.setContactType(contact.getContactType());
-			contactFromDb.setPerson(contact.getPerson());
-
 			
 			Contact updatedContact = contactRepository.save(contactFromDb);
 			return Optional.of(updatedContact);

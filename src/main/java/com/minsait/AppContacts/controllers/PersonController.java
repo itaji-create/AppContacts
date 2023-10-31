@@ -48,7 +48,7 @@ public class PersonController {
 	@PutMapping("/{personId}")
 	public ResponseEntity<ResponseDTO<Person>> updatePerson(@PathVariable Long personId, @RequestBody Person person) {
 		if (person.getName() == null) {
-			ResponseDTO<Person> responseDTO = new ResponseDTO<>("You must fill in the name field to create a new user.", null);
+			ResponseDTO<Person> responseDTO = new ResponseDTO<>("You must fill in the name field to update a user.", null);
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responseDTO);
 		}
 	
