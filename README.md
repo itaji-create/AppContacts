@@ -54,7 +54,6 @@ Configure o arquivo application.properties para definir as configurações do ba
 	- Obs. Exemplos com aplicação rodando no localhost porta 8080.
 
 <details>
-
 	<summary><strong>Pessoa</strong></summary>
 
 	- POST: "http://localhost:8080/api/pessoas"
