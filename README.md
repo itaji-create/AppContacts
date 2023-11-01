@@ -41,13 +41,13 @@ Configure o arquivo application.properties para definir as configurações do ba
 
 <strong>Exemplo de application.properties:</strong>
 
-	- `spring.datasource.url=jdbc:mysql://localhost:3306/meu-database`
-	- `spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver`
-	- `spring.datasource.username=root`
-	- `spring.datasource.password=senha-aqui`
-	- `spring.jpa.database-platform=org.hibernate.dialect.MySQLDialect`
-	- `spring.jpa.hibernate.ddl-auto=create`
-	- `spring.jpa.show-sql=true`
+	spring.datasource.url=jdbc:mysql://localhost:3306/meu-database
+	spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
+	spring.datasource.username=root
+	spring.datasource.password=senha-aqui
+	spring.jpa.database-platform=org.hibernate.dialect.MySQLDialect
+	spring.jpa.hibernate.ddl-auto=create
+	spring.jpa.show-sql=true
 
 ## Endpoints disponíveis:
 
