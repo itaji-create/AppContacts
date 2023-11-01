@@ -49,6 +49,10 @@ Configure o arquivo application.properties para definir as configurações do ba
 	spring.jpa.hibernate.ddl-auto=create
 	spring.jpa.show-sql=true
 
+## Documentação da API
+A API é documentada usando Swagger. Você pode acessar a documentação interativa da API no seguinte link: [Swagger Documentation](https://localhost:8080/api/)
+
+
 ## Endpoints disponíveis:
 
 	- Obs. Exemplos com aplicação rodando no localhost porta 8080.
