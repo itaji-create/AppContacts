@@ -2,6 +2,9 @@
 
 Este projeto tem como finalidade demonstrar os conhecimentos obtidos durante o curso de capacitação em Java/Spring da Minsait. Nele foi construido uma API Rest que permite o usuário criar, deletar, resgatar ou atualizar pessoas e contatos em um banco de dados.
 
+## Interface da API
+A API é documentada usando Swagger e está hospedada no serviço de clound Railway. Você pode acessar a documentação interativa da API no seguinte link: [Swagger Documentation](https://appcontacts-production.up.railway.app/swagger-ui/index.html#)
+
 ## Tecnologias
 
 - Java 17
@@ -28,29 +31,12 @@ Para iniciar o projeto é necessario ter instalado em sua máquina as seguintes 
 2. Acesse o diretório do projeto:
 	- `cd AppContacts`
 
-3. Compile o projeto com o Maven:
-	- `mvn clean install`
-	
-4. Execute o projeto:
-	- `mvn spring-boot:run`
-	
 
-## Configuração
+## Configuração e Inicialização
 
-Configure o arquivo application.properties para definir as configurações do banco de dados e outras propriedades da aplicação. Certifique-se de configurar corretamente as informações de banco de dados, como URL, usuário e senha.
+As configurações do projeto estão pré-definidas no arquivo application.properties, este arquivo não deve ser alterado, mas para que a aplicação rode localmente você deverá definir as variáveis de ambiente junto ao comando de run do mvn conforme o exemplo a seguir:
 
-<strong>Exemplo de application.properties:</strong>
-
-	spring.datasource.url=jdbc:mysql://localhost:3306/meu-database
-	spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
-	spring.datasource.username=root
-	spring.datasource.password=senha-aqui
-	spring.jpa.database-platform=org.hibernate.dialect.MySQLDialect
-	spring.jpa.hibernate.ddl-auto=create
-	spring.jpa.show-sql=true
-
-## Documentação da API
-A API é documentada usando Swagger. Você pode acessar a documentação interativa da API no seguinte link: [Swagger Documentation](https://localhost:8080/api/)
+	DB_HOSTNAME=localhost DB_PORT=3306 DB_NAME=my-db DB_USER=root DB_PASSWORD=my-password ./mvnw spring-boot:run
 
 
 ## Endpoints disponíveis:
