@@ -2,9 +2,6 @@
 
 Este projeto tem como finalidade demonstrar os conhecimentos obtidos durante o curso de capacitação em Java/Spring da Minsait. Nele foi construido uma API Rest que permite o usuário criar, deletar, resgatar ou atualizar pessoas e contatos em um banco de dados.
 
-## Interface da API
-A API é documentada usando Swagger e está hospedada no serviço de clound Railway. Você pode acessar a documentação interativa da API no seguinte link: [Swagger Documentation](https://appcontacts-production.up.railway.app/swagger-ui/index.html#)
-
 ## Tecnologias
 
 - Java 17
@@ -13,7 +10,7 @@ A API é documentada usando Swagger e está hospedada no serviço de clound Rail
 - Spring Data JPA
 - Hibernate
 - Banco de Dados (MySQL)
-- Swagger-ui
+- OpenAPI (Swagger)
 
 ## Pré-requisitos
 
@@ -32,16 +29,21 @@ Para iniciar o projeto é necessario ter instalado em sua máquina as seguintes 
 	- `cd AppContacts`
 
 
-## Configuração e Inicialização
+## Variáveis de Ambiente e Inicialização
 
 As configurações do projeto estão pré-definidas no arquivo application.properties, este arquivo não deve ser alterado, mas para que a aplicação rode localmente você deverá definir as variáveis de ambiente junto ao comando de run do mvn conforme o exemplo a seguir:
 
 	DB_HOSTNAME=localhost DB_PORT=3306 DB_NAME=my-db DB_USER=root DB_PASSWORD=my-password ./mvnw spring-boot:run
 
+ Caso você esteja usando uma IDE como o Eclipse, é possível definir as variáveis de ambiente clicando em Run Configurations na seção Enviroment.
+
+ ## Interface da API
+A API é documentada usando Swagger e está hospedada no serviço de clound Railway. Você pode acessar a documentação interativa da API no seguinte link: [Swagger Documentation](https://appcontacts-production.up.railway.app/swagger-ui/index.html)
+Obs. Para testar os endpoints é necessário que o projeto esteja rodando em sua máquina, a disponibilidação dessa interface serve apenas para demonstrar de maneira mais visual os endpoints e como cada requisição deve ser feita.
 
 ## Endpoints disponíveis:
 
-	- Obs. Exemplos com aplicação rodando no localhost porta 8080.
+Exemplos com aplicação rodando no localhost porta 8080:
 
 <details>
 	<summary><strong>Pessoa</strong></summary>
@@ -53,7 +55,7 @@ As configurações do projeto estão pré-definidas no arquivo application.prope
 	- GET: "http://localhost:8080/api/pessoas/maladireta/{pessoaId}"
 		(Retorna os dados de uma Pessoa por ID para mala direta)
 	- GET: "http://localhost:8080/api/pessoas"
-		(Lista todas as Pessoas)
+		(Retornar todas as pessoas)
 	- PUT http://localhost:8080/api/pessoas/{pessoaId}"
 		(Atualiza uma Pessoa existente)
 	- DELETE: "http://localhost:8080/api/pessoas/{pessoaId}"
@@ -76,4 +78,3 @@ As configurações do projeto estão pré-definidas no arquivo application.prope
 		(Remove um Contato por ID)
 
 </details>
-	
