@@ -38,7 +38,8 @@ As configurações do projeto estão pré-definidas no arquivo application.prope
  Caso você esteja usando uma IDE como o Eclipse, é possível definir as variáveis de ambiente clicando em Run Configurations na seção Enviroment.
 
  ## Interface da API
-A API é documentada usando Swagger e está hospedada no serviço de clound Railway. Você pode acessar a documentação interativa da API no seguinte link: [Swagger Documentation](https://appcontacts-production.up.railway.app/swagger-ui/index.html)
+A API é documentada usando Swagger e está hospedada no serviço de clound Railway. Você pode acessar a documentação interativa da API no seguinte link: [Swagger Documentation](https://appcontacts-production.up.railway.app/swagger-ui/index.html).
+
 Obs. Para testar os endpoints é necessário que o projeto esteja rodando em sua máquina, a disponibilidação dessa interface serve apenas para demonstrar de maneira mais visual os endpoints e como cada requisição deve ser feita.
 
 ## Endpoints disponíveis:
